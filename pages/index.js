@@ -21,12 +21,12 @@ export default function Home() {
 	}	
 
 	const favDevelopers = [
+		'esterlilianlb',
 		'peas',
 		'omariosouto',
 		'rafaballerini',
 		'juunegreiros',
-		'marcobrunodev',
-		'felipefialho'
+		'marcobrunodev'	
 	]
 
 	return (
