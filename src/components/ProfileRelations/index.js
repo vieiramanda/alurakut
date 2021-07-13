@@ -4,6 +4,7 @@ import Box from '../Box';
 export const ProfileRelationsBoxWrapper = styled(Box)` 
 //o componente ProfileRelations está reutilizando o componente Box 
 //e adaptando a sua estilização para o ProfileRelations
+  background-color: #D9E6F6;
   ul {
     display: grid;
     grid-gap: 8px;

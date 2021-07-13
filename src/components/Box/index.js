@@ -1,17 +1,26 @@
 import styled from 'styled-components'
 
 const Box = styled.div`
-   background-color: #FFFFFF;
+   //background-color: #FFFFFF;
+   background-color: #D9E6F6;
    border-radius: 10px;
    margin-bottom: 10px;
    padding: 14px;
+
 
    .boxLink {
       font-size: 14px;
       color: #2E7BB4;
       text-decoration: none;
+      -webkit-text-decoration: none;
       font-weight: 800;
    }
+   .bioProfile {
+      font-family: sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: #A0A0A0;
+    }
    .title {
       font-size: 32px;
       font-weight: 400;

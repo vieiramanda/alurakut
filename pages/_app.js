@@ -10,7 +10,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background-color: #D9E6F6;
+    //background-color: #D9E6F6;
     font-family: sans-serif;
   }
   
@@ -18,6 +18,8 @@ const GlobalStyle = createGlobalStyle`
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    background-image: url("https://wallpapercave.com/wp/wp6557973.png");
+    background-size: contain;
   }
   
   img {

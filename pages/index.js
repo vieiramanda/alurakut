@@ -6,8 +6,11 @@ import { AlurakutMenu, AlurakutProfileSidebarMenuDefault, OrkutNostalgicIconSet 
 import { ProfileReations } from '../src/lib/AlurakutCommons'
 import { ProfileRelationsBoxWrapper } from '../src/components/ProfileRelations'
 
+
 function ProfileSideBar(props) {	
-	//console.log(props)
+	console.log("props = ", props)
+	const githubUserProfile = props
+	//console.log(githubUser)
 	return (
 		<>
 			<Box as="aside">
@@ -16,6 +19,7 @@ function ProfileSideBar(props) {
 				<a className="boxLink" href={`https://github.com/${props.user.name}`} target="_blank"> 
 					@{props.user.name}
 				</a>
+				<p className="bioProfile">{props.user.bio}</p>
 				<hr />
 				<AlurakutProfileSidebarMenuDefault />
 			</Box>
@@ -26,7 +30,7 @@ function ProfileSideBar(props) {
 export default function Home() {	
 	const githubUser = {	
 		name: 'vieiramanda',
-		age : 30
+		bio : 'desvendadora de códigos'
 	}
 	const favDevelopers = [
 		'esterlilianlb',
@@ -34,17 +38,19 @@ export default function Home() {
 		'omariosouto',
 		'rafaballerini',
 		'juunegreiros',
-		'marcobrunodev'	
+		'maateusilva',	
+		'marcobrunodev'
 	]
 
 	//const comunidades = React.useState(['alurakut', 'odeio acordar cedo']) :
 	//retorna o array declarado [0]  + function() [1]
 	//dessa outra forma, concatena os elementos e a function fica definida como SET para alerar o State:
 	//transformar em objeto
-	const [comunidades, setComunidades] = React.useState([{
+	const [comunidades, setComunidades] = React.useState([
+		{
 			id : '',
-			title : 'Eu odeio acordar cedo' ,
-			image : 'https://alurakut.vercel.app/capa-comunidade-01.jpg'
+			title : 'Um mamão vai na cabeça...' ,
+			image : 'https://www.socialdub.com/groupspictures/6538/65381350682258077780.jpg?x2'
 		},
 		{
 			id : '',
@@ -55,13 +61,39 @@ export default function Home() {
 			id : '',
 			title : 'Sou legal, ñ to te dando mole' ,
 			image : 'https://img10.orkut.br.com/community/c234097b9bb574eeeaecdbf0266a19b6.jpg'
-		}		
+		},
+		{
+			id : '',
+			title : 'Discografias' ,
+			image : 'https://img10.orkut.br.com/community/f50f08c3f0acf3519578cbc92f81089c.jpg'
+		},
+		{
+			id : '',
+			title : 'Lenin, de três' ,
+			image : 'https://img10.orkut.br.com/community/f0131f9cec84100d3b7e02bd8a9323c2.jpg'
+		},
+		{
+			id : '',
+			title : 'Não fui eu, foi meu Eu lírico' ,
+			image : 'https://img10.orkut.br.com/community/5e4d5320754f378e9168d5028ba98728.jpg'
+		},
+		{
+			id : '',
+			title : 'Seu Madruga, sua vó tem ORKUT?' ,
+			image : 'https://img10.orkut.br.com/community/d3312c83b8a795c6129faff835ae682a.jpg'
+		},
+		{
+			id : '',
+			title : 'Eu odeio acordar cedo' ,
+			image : 'https://alurakut.vercel.app/capa-comunidade-01.jpg'
+		},
+			
 	])
-	console.log(comunidades)
+	//console.log(comunidades)
 	
 	return (
 		<>
-		<AlurakutMenu />
+		<AlurakutMenu user={githubUser}/>
 		<MainGrid>
 			<div className="profileArea" style={{ gridArea: 'profileArea' }} >
 				<ProfileSideBar user={githubUser} />
@@ -78,8 +110,8 @@ export default function Home() {
 							e.preventDefault()
 							//console.log(e)
 							const dataForm = new FormData(e.target)
-							console.log("input:", dataForm.get('title'))
-							console.log("input:", dataForm.get('image'))
+							//console.log("input:", dataForm.get('title'))
+							//console.log("input:", dataForm.get('image'))
 
 							const comunidade = {
 								id : '',
@@ -111,15 +143,17 @@ export default function Home() {
 						Desenvolvedores de respeito ({favDevelopers.length})
 					</h2>
 					<ul>					
-						{favDevelopers.map((developer) => {
-							return (
-								<li key={developer}>
-									<a href={`/users/${developer}`} target="_blank">
-										<img src={`https://github.com/${developer}.png`} />
-										<span>{developer}</span>
-									</a>
-								</li>
-							)					
+						{favDevelopers.map((developer, index) => {
+							if (index < 6) {
+								return (
+									<li key={developer}>
+										<a href={`/users/${developer}`} target="_blank">
+											<img src={`https://github.com/${developer}.png`} />
+											<span>{developer}</span>
+										</a>
+									</li>
+								)
+							}					
 						})}
 					</ul>
 				</ProfileRelationsBoxWrapper>
@@ -129,15 +163,17 @@ export default function Home() {
 						Comunidades ({comunidades.length})
 					</h2>
 					<ul>					
-						{comunidades.map((comu) => {
-							return (
-								<li key={comu.title}>
-									<a href={`/users/${comu.title}`}>
-										<img src={comu.image} />
-										<span>{comu.title}</span>
-									</a>
-								</li>
-							)					
+						{comunidades.map((comu, index) => {
+							if (index < 6) {
+								return (
+									<li key={comu.title}>
+										<a href={`/users/${comu.title}`} target="_blank">
+											<img src={comu.image} />
+											<span>{comu.title}</span>
+										</a>
+									</li>
+								)										
+							} 
 						})}
 					</ul>
 				</ProfileRelationsBoxWrapper>

@@ -19,7 +19,8 @@ function Link({ href, children, ...props }) {
 // ================================================================================================================
 // Menu
 // ================================================================================================================
-export function AlurakutMenu({ githubUser }) {
+export function AlurakutMenu( githubUser ) {
+  //console.log("object =", githubUser)
   const [isMenuOpen, setMenuState] = React.useState(false);
   return (
     <AlurakutMenu.Wrapper isMenuOpen={isMenuOpen}>
@@ -56,7 +57,8 @@ AlurakutMenu.Wrapper = styled.header`
   width: 100%;
   background-color: #308BC5;
   .alurakutMenuProfileSidebar {
-    background: white;
+    overflow-y: scroll;
+    background-color: white;
     position: fixed;
     z-index: 100;
     padding: 46px;
@@ -84,6 +86,12 @@ AlurakutMenu.Wrapper = styled.header`
       -webkit-text-decoration: none;
       text-decoration: none;
       font-weight: 800;
+    }
+    .bioProfile {
+      font-family: sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: #A0A0A0;
     }
     hr {
       margin-top: 12px;
@@ -163,16 +171,18 @@ AlurakutMenu.Logo = styled.img`
 `;
 
 function AlurakutMenuProfileSidebar({ githubUser }) {
+  
   return (
     <div className="alurakutMenuProfileSidebar">
       <div>
-        <img src={`https://github.com/${githubUser}.png`} style={{ borderRadius: '8px' }} />
+        <img src={`https://github.com/${githubUser.user.name}.png`} style={{ borderRadius: '8px' }} />
         <hr />
         <p>
-          <a className="boxLink" href={`/user/${githubUser}`}>
-            @{githubUser}
+          <a className="boxLink" href={`/user/${githubUser.user.name}`}>
+            @{githubUser.user.name}
           </a>
         </p>
+        <p className="bioProfile">{githubUser.user.bio}</p>
         <hr />
 
         <AlurakutProfileSidebarMenuDefault />
