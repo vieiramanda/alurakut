@@ -4,11 +4,11 @@ import MainGrid from '../src/components/MainGrid'
 import Box from '../src/components/Box'
 import { AlurakutMenu, AlurakutProfileSidebarMenuDefault, OrkutNostalgicIconSet } from '../src/lib/AlurakutCommons'
 import { ProfileReations } from '../src/lib/AlurakutCommons'
-import { ProfileRelationsBoxWrapper } from '../src/components/ProfileRelations'
+import { ProfileRelationsBox } from '../src/components/ProfileRelations'
 
 
 function ProfileSideBar(props) {	
-	console.log("props = ", props)
+	//console.log("props = ", props)
 	const githubUserProfile = props
 	//console.log(githubUser)
 	return (
@@ -32,6 +32,7 @@ export default function Home() {
 		name: 'vieiramanda',
 		bio : 'desvendadora de códigos'
 	}
+	/*
 	const favDevelopers = [
 		'esterlilianlb',
 		'peas',
@@ -41,7 +42,7 @@ export default function Home() {
 		'maateusilva',	
 		'marcobrunodev'
 	]
-
+	*/
 	//const comunidades = React.useState(['alurakut', 'odeio acordar cedo']) :
 	//retorna o array declarado [0]  + function() [1]
 	//dessa outra forma, concatena os elementos e a function fica definida como SET para alerar o State:
@@ -89,8 +90,26 @@ export default function Home() {
 		},
 			
 	])
-	//console.log(comunidades)
-	
+
+	const [favDevelopers, setFavDevelopers] = React.useState([])	
+	React.useEffect(function () {
+		fetch("https://api.github.com/users/vieiramanda/following")
+		.then(function(response){		// o then trata um promise
+			if(response.ok){				// o ok tem valor true/false. false: erros das faixas 300 e 400
+				return response.json()	// retorna outra  promise
+			}
+			throw new Error('Ops... something went wrong: código http ' + response.status)
+			
+		}).then(function(responseConverted){
+			console.log("response converted: ", responseConverted)
+			setFavDevelopers(responseConverted)
+			console.log("fav devs 2= ", favDevelopers)
+		}).catch(function(error) {
+			console.error(error)
+		})
+
+	}, [])
+
 	return (
 		<>
 		<AlurakutMenu user={githubUser}/>
@@ -138,46 +157,8 @@ export default function Home() {
 				</Box>
 			</div>
 			<div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }} >
-				<ProfileRelationsBoxWrapper>
-					<h2 className="smallTitle">
-						Desenvolvedores de respeito ({favDevelopers.length})
-					</h2>
-					<ul>					
-						{favDevelopers.map((developer, index) => {
-							if (index < 6) {
-								return (
-									<li key={developer}>
-										<a href={`/users/${developer}`} target="_blank">
-											<img src={`https://github.com/${developer}.png`} />
-											<span>{developer}</span>
-										</a>
-									</li>
-								)
-							}					
-						})}
-					</ul>
-				</ProfileRelationsBoxWrapper>
-
-				<ProfileRelationsBoxWrapper>
-					<h2 className="smallTitle">
-						Comunidades ({comunidades.length})
-					</h2>
-					<ul>					
-						{comunidades.map((comu, index) => {
-							if (index < 6) {
-								return (
-									<li key={comu.title}>
-										<a href={`/users/${comu.title}`} target="_blank">
-											<img src={comu.image} />
-											<span>{comu.title}</span>
-										</a>
-									</li>
-								)										
-							} 
-						})}
-					</ul>
-				</ProfileRelationsBoxWrapper>
-				
+				<ProfileRelationsBox name="Desenvolvedores de respeito" devs={ favDevelopers } />
+				<ProfileRelationsBox title="Comunidades" array={ comunidades } />
 			</div>
 		</MainGrid>
 		</>
