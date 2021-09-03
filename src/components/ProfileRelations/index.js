@@ -12,11 +12,11 @@ export function ProfileRelationsBox( props ) {
         </h2>
         <ul>					
         {props.array.map((comu, index) => {
-          if (index < 6) {
+          if (index < 10) {
             return (
               <li key={comu.title}>
                 <a href={`/users/${comu.title}`} target="_blank">
-                  <img src={comu.image} />
+                  <img src={comu.imageUrl} />
                   <span>{comu.title}</span>
                 </a>
               </li>
