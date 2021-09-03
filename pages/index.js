@@ -8,7 +8,6 @@ import { AlurakutMenu, AlurakutProfileSidebarMenuDefault, OrkutNostalgicIconSet 
 import { ProfileReations } from '../src/lib/AlurakutCommons'
 import { ProfileRelationsBox } from '../src/components/ProfileRelations'
 
-
 function ProfileSideBar(props) {	
 	//console.log("props = ", props)
 	const githubUserProfile = props
@@ -34,36 +33,20 @@ export default function Home(props) {
 		name: props.githubUser,
 		bio: props.bio
 	}
-	/*
 	
-	const favDevelopers = [
-		'esterlilianlb',
-		'peas',
-		'omariosouto',
-		'rafaballerini',
-		'juunegreiros',
-		'maateusilva',	
-		'marcobrunodev'
-	]
-	*/	
 	const [favDevelopers, setFavDevelopers] = React.useState([]);
 
 	const [comunidades, setComunidades] = React.useState([]);
 	React.useEffect(function () {
 		//API Github
 		fetch("https://api.github.com/users/vieiramanda/following")
-		.then(function(response){		// o then trata um promise
-			if(response.ok){				// o ok tem valor true/false. false: erros das faixas 300 e 400
-				return response.json()	// retorna outra  promise
-			}
-			throw new Error('Ops... something went wrong: código http ' + response.status)
-			
-		}).then(function(responseConverted){
-			console.log("response converted: ", responseConverted)
-			setFavDevelopers(responseConverted)
+		.then(function (responseAPI) {
+			return responseAPI.json()
+		})
+		.then(function (responseComplete) {			
+			console.log("response complete: ", responseComplete)
+			setFavDevelopers(responseComplete)
 			console.log("fav devs 2= ", favDevelopers)
-		}).catch(function(error) {
-			console.error(error)
 		})
 
 		//APÍ GraphQL - parametros: URL request / config object
@@ -87,15 +70,13 @@ export default function Home(props) {
 		})
 		.then((response) => response.json())	// Pega o retorno do response.json() e já retorna
 		.then((responseComplete) => {
-			console.log('responseComplete: ', responseComplete);
+			//console.log('responseComplete: ', responseComplete);
 			const communitiesFromDato = responseComplete.data.allCommunities;
-			console.log('communitiesFromDato : ', communitiesFromDato);
+			//console.log('communitiesFromDato : ', communitiesFromDato);
 			setComunidades(communitiesFromDato);
 		})
 
-
 	}, [])
-
 
 	return (
 		<>

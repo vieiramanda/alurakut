@@ -4,7 +4,7 @@ import Box from '../Box';
 export function ProfileRelationsBox( props ) {
 
   if (props.title == "Comunidades") { 
-    console.log(props) 
+    //console.log(props) 
     return (
       <ProfileRelationsBox.Wrapper>
         <h2 className="smallTitle">
@@ -15,7 +15,7 @@ export function ProfileRelationsBox( props ) {
           if (index < 10) {
             return (
               <li key={comu.title}>
-                <a href={`/users/${comu.title}`} target="_blank">
+                <a href={`/comunidades/${comu.title}`} target="_blank">
                   <img src={comu.imageUrl} />
                   <span>{comu.title}</span>
                 </a>
@@ -28,28 +28,28 @@ export function ProfileRelationsBox( props ) {
     )
 
   } else {
-    console.log("fav devs 1 = ", props)
+    //console.log("fav devs array on componente = ", props)
     return(
       <ProfileRelationsBox.Wrapper>
         <h2 className="smallTitle">
           {props.name} ({props.devs.length})
         </h2>
-        {/*
+        {
         <ul>					
           {props.devs.map((developer, index) => {
             if (index < 6) {
               return (
                 <li key={developer}>
-                  <a href={`/users/${developer}`} target="_blank">
-                    <img src={`https://github.com/${developer}.png`} />
-                    <span>{developer}</span>
+                  <a href={`/users/${developer.login}`} target="_blank">
+                    <img src={developer.avatar_url} />
+                    <span>{developer.login}</span>
                   </a>
                 </li>
               )
             }					
           })}
         </ul>
-        */}
+        }
       </ProfileRelationsBox.Wrapper>
     )
   }
